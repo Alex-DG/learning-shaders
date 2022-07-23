@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+  font-family: Arial, Helvetica, Arial, sans-serif;
+  background-color: rgb(27, 27, 31);
+}
+
+#experience {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  outline: none;
+}
