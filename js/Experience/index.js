@@ -57,16 +57,6 @@ class Experience {
 
   setCamera() {
     // Base camera
-    // this.camera = new THREE.PerspectiveCamera(
-    //   75,
-    //   this.sizes.width / this.sizes.height,
-    //   0.1,
-    //   100
-    // )
-    // this.camera.position.x = 1
-    // this.camera.position.y = 1
-    // this.camera.position.z = 1
-    // this.scene.add(this.camera)
     this.camera = new THREE.OrthographicCamera(0, 1, 1, 0, 0.1, 1000)
     this.camera.position.set(0, 0, 1)
 
@@ -87,7 +77,10 @@ class Experience {
 
   setPlane() {
     const material = new THREE.ShaderMaterial({
-      uniforms: {},
+      uniforms: {
+        colour1: { value: new THREE.Vector4(1, 1, 0, 1) },
+        colour2: { value: new THREE.Vector4(0, 1, 1, 1) },
+      },
       vertexShader,
       fragmentShader,
     })
