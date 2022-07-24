@@ -84,7 +84,20 @@ class Experience {
       vertexShader,
       fragmentShader,
     })
+
+    const colours = [
+      new THREE.Color(0xff0000),
+      new THREE.Color(0x00ff00),
+      new THREE.Color(0x0000ff),
+      new THREE.Color(0x00ffff),
+    ]
+    const colourFloats = colours.map((c) => c.toArray()).flat()
+
     const geometry = new THREE.PlaneGeometry(1, 1)
+    geometry.setAttribute(
+      'aColours',
+      new THREE.Float32BufferAttribute(colourFloats, 3)
+    )
 
     const plane = new THREE.Mesh(geometry, material)
     plane.position.set(0.5, 0.5, 0)
