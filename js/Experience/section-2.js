@@ -1,10 +1,8 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-import vertexShader from './shaders/section-3/vertex.glsl'
-import fragmentShader from './shaders/section-3/fragment.glsl'
-
-import textureSrc from '../../assets/textures/dog.jpg'
+import vertexShader from './shaders/section-2/vertex.glsl'
+import fragmentShader from './shaders/section-2/fragment.glsl'
 
 class Experience {
   constructor(options) {
@@ -16,17 +14,14 @@ class Experience {
   /**
    * Experience setup
    */
-  async init() {
+  init() {
     this.bind()
     this.setSizes()
     this.setRenderer()
     this.setCamera()
-    this.setResize()
-
-    await this.setAssets()
-
+    // this.setCube()
     this.setPlane()
-
+    this.setResize()
     this.update()
 
     console.log('🤖', 'Experience initialized')
@@ -80,22 +75,29 @@ class Experience {
     this.container.appendChild(this.renderer.domElement)
   }
 
-  async setAssets() {
-    const loader = new THREE.TextureLoader()
-    this.texture = await loader.load(textureSrc)
-  }
-
   setPlane() {
     const material = new THREE.ShaderMaterial({
       uniforms: {
-        tint: { value: new THREE.Vector4(1, 0, 0, 1) },
-        diffuse: { value: this.texture },
+        colour1: { value: new THREE.Vector4(1, 1, 0, 1) },
+        colour2: { value: new THREE.Vector4(0, 1, 1, 1) },
       },
       vertexShader,
       fragmentShader,
     })
 
+    const colours = [
+      new THREE.Color(0xff0000),
+      new THREE.Color(0x00ff00),
+      new THREE.Color(0x0000ff),
+      new THREE.Color(0x00ffff),
+    ]
+    const colourFloats = colours.map((c) => c.toArray()).flat()
+
     const geometry = new THREE.PlaneGeometry(1, 1)
+    geometry.setAttribute(
+      'aColours',
+      new THREE.Float32BufferAttribute(colourFloats, 3)
+    )
 
     const plane = new THREE.Mesh(geometry, material)
     plane.position.set(0.5, 0.5, 0)
