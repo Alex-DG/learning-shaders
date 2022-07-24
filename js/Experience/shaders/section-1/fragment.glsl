@@ -1,3 +1,8 @@
+
+varying vec2 vUv;
+
 void main() {
-    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    vec3 blackToWhite = vec3(vUv.x);
+    vec3 whiteToBlack = 1. - blackToWhite;
+    gl_FragColor = vec4(whiteToBlack, 1.);
 }
