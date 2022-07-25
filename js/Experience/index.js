@@ -5,6 +5,7 @@ import vertexShader from './shaders/section-3/vertex.glsl'
 import fragmentShader from './shaders/section-3/fragment.glsl'
 
 import textureSrc from '../../assets/textures/dog.jpg'
+import overlaySrc from '../../assets/textures/overlay.png'
 
 class Experience {
   constructor(options) {
@@ -83,6 +84,7 @@ class Experience {
   async setAssets() {
     const loader = new THREE.TextureLoader()
     this.texture = await loader.load(textureSrc)
+    this.overlay = await loader.load(overlaySrc)
   }
 
   setPlane() {
@@ -90,6 +92,7 @@ class Experience {
       uniforms: {
         tint: { value: new THREE.Vector4(1, 0, 0, 1) },
         diffuse: { value: this.texture },
+        overlay: { value: this.overlay },
       },
       vertexShader,
       fragmentShader,
