@@ -1,8 +1,11 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
-import vertexShader from './shaders/section-4/vertex.glsl'
-import fragmentShader from './shaders/section-4/fragment.glsl'
+import vertexShader from './shaders/section-3/vertex.glsl'
+import fragmentShader from './shaders/section-3/fragment.glsl'
+
+import textureSrc from '../../assets/textures/dog.jpg'
+import overlaySrc from '../../assets/textures/overlay.png'
 
 class Experience {
   constructor(options) {
@@ -78,14 +81,27 @@ class Experience {
     this.container.appendChild(this.renderer.domElement)
   }
 
-  async setAssets() {}
+  async setAssets() {
+    const loader = new THREE.TextureLoader()
+    this.texture = await loader.load(textureSrc)
+
+    // this.texture.wrapS = this.texture.wrapT = THREE.ClampToEdgeWrapping
+    // this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping
+
+    this.texture.wrapS = THREE.MirroredRepeatWrapping
+    this.texture.wrapT = THREE.MirroredRepeatWrapping
+    // this.texture.magFilter = THREE.NearestFilter
+    this.texture.magFilter = THREE.LinearFilter // smooth filtering
+
+    this.overlay = await loader.load(overlaySrc)
+  }
 
   setPlane() {
     const material = new THREE.ShaderMaterial({
       uniforms: {
-        resolution: {
-          value: new THREE.Vector2(window.innerWidth, window.innerHeight),
-        },
+        tint: { value: new THREE.Vector4(1, 0, 0, 1) },
+        diffuse: { value: this.texture },
+        overlay: { value: this.overlay },
       },
       vertexShader,
       fragmentShader,
