@@ -84,6 +84,11 @@ class Experience {
   async setAssets() {
     const loader = new THREE.TextureLoader()
     this.texture = await loader.load(textureSrc)
+
+    // this.texture.wrapS = this.texture.wrapT = THREE.ClampToEdgeWrapping
+    // this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping
+    // this.texture.wrapS = this.texture.wrapT = THREE.MirroredRepeatWrapping
+
     this.overlay = await loader.load(overlaySrc)
   }
 
