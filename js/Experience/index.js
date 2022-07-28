@@ -87,7 +87,11 @@ class Experience {
 
     // this.texture.wrapS = this.texture.wrapT = THREE.ClampToEdgeWrapping
     // this.texture.wrapS = this.texture.wrapT = THREE.RepeatWrapping
-    // this.texture.wrapS = this.texture.wrapT = THREE.MirroredRepeatWrapping
+
+    this.texture.wrapS = THREE.MirroredRepeatWrapping
+    this.texture.wrapT = THREE.MirroredRepeatWrapping
+    // this.texture.magFilter = THREE.NearestFilter
+    this.texture.magFilter = THREE.LinearFilter // smooth filtering
 
     this.overlay = await loader.load(overlaySrc)
   }
