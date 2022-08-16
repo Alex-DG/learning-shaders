@@ -4,8 +4,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import vertexShader from './shaders/section-4/vertex.glsl'
 import fragmentShader from './shaders/section-4/fragment.glsl'
 
-import dogTexture from '../../assets/textures/dog.jpg'
-
 class Experience {
   constructor(options) {
     this.scene = new THREE.Scene()
@@ -41,6 +39,13 @@ class Experience {
     // Update sizes
     this.sizes.width = window.innerWidth
     this.sizes.height = window.innerHeight
+
+    if (this.material) {
+      this.material.uniforms.resolution.value = new THREE.Vector2(
+        window.innerWidth,
+        window.innerHeight
+      )
+    }
 
     // Update camera
     this.camera.aspect = this.sizes.width / this.sizes.height
@@ -84,7 +89,11 @@ class Experience {
 
   setPlane() {
     this.material = new THREE.ShaderMaterial({
-      uniforms: {},
+      uniforms: {
+        resolution: {
+          value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+        },
+      },
       vertexShader,
       fragmentShader,
     })

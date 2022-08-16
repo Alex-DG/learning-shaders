@@ -84,7 +84,10 @@ class Experience {
 
   setPlane() {
     this.material = new THREE.ShaderMaterial({
-      uniforms: {},
+      uniforms: {
+        diffuse1: { value: dogTexture },
+        time: { value: 0.0 },
+      },
       vertexShader,
       fragmentShader,
     })
@@ -111,6 +114,10 @@ class Experience {
   //////////////////////////////////////////////////////////////////////////////
 
   update() {
+    // if (this.material === null) {
+    //   this.previousRAF_ = t;
+    // }
+
     // Update controls
     this.controls.update()
 
