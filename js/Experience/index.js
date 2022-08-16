@@ -40,6 +40,13 @@ class Experience {
     this.sizes.width = window.innerWidth
     this.sizes.height = window.innerHeight
 
+    if (this.material) {
+      this.material.uniforms.resolution.value = new THREE.Vector2(
+        window.innerWidth,
+        window.innerHeight
+      )
+    }
+
     // Update camera
     this.camera.aspect = this.sizes.width / this.sizes.height
     this.camera.updateProjectionMatrix()
@@ -81,7 +88,7 @@ class Experience {
   async setAssets() {}
 
   setPlane() {
-    const material = new THREE.ShaderMaterial({
+    this.material = new THREE.ShaderMaterial({
       uniforms: {
         resolution: {
           value: new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -93,7 +100,7 @@ class Experience {
 
     const geometry = new THREE.PlaneGeometry(1, 1)
 
-    const plane = new THREE.Mesh(geometry, material)
+    const plane = new THREE.Mesh(geometry, this.material)
     plane.position.set(0.5, 0.5, 0)
     this.scene.add(plane)
   }
