@@ -49,7 +49,7 @@ void main() {
   dp = smoothstep(0.5, 0.505, dp);
 
   // 3 Colours
-  // dp = mix(0.5, 1.0, step(0.2, dp)) * step(0.05, dp);
+  dp = mix(0.5, 1.0, step(0.2, dp)) * step(0.05, dp);
 
   vec3 specular = vec3(0.0);
   vec3 diffuse = dp * lightColour;
