@@ -14,9 +14,29 @@ float remap(float v, float inMin, float inMax, float outMin, float outMax) {
   return mix(outMin, outMax, t);
 }
 
+mat3 rotateY(float radians) {
+  float s = sin(radians);
+  float c = cos(radians);
+
+  return mat3(
+    c, 0.,s,
+    0.,1.,0.,
+    -s,0.,c
+  );
+}
 
 void main() {	
   vec3 localSpacePosition = position;
+
+  // -> position
+  // localSpacePosition.z += sin(time);
+
+  // -> scale
+  localSpacePosition.xz *= remap(sin(time), -1.,1.,0.5,1.5);
+
+  // -> rotation
+  localSpacePosition.x += sin(time);
+  localSpacePosition = rotateY(time) * localSpacePosition;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(localSpacePosition, 1.0);
   vNormal = (modelMatrix * vec4(normal, 0.0)).xyz;

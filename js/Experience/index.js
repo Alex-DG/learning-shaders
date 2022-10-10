@@ -6,7 +6,7 @@ class Experience {
   constructor() {}
 
   async initialize() {
-    this.threejs_ = new THREE.WebGLRenderer()
+    this.threejs_ = new THREE.WebGLRenderer({ antialias: true })
     this.threejs_.outputEncoding = THREE.sRGBEncoding
     document.body.appendChild(this.threejs_.domElement)
 
@@ -62,7 +62,8 @@ class Experience {
 
     this.material_ = material
 
-    const geometry = new THREE.IcosahedronGeometry(1, 128)
+    // const geometry = new THREE.IcosahedronGeometry(1, 128)
+    const geometry = new THREE.BoxGeometry(1, 1)
     const mesh = new THREE.Mesh(geometry, material)
     this.scene_.add(mesh)
 
